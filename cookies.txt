@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+si2.usfx.bo	TRUE	/	FALSE	1999999999	_csrf	49d1cb3c54507fcc97766ffb5459cca5595394f19e9066bdf8848bc6968fa544a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22ecvxwDux-JONN952bTCRZynyAwvv8F14%22%3B%7D
+si2.usfx.bo	TRUE	/	FALSE	1999999999	PHPSESSID	h0k5edr50hoi2ik5u9r333fp44
+
