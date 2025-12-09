@@ -1529,15 +1529,16 @@
         width: 100%;
         height: 100%;
         overflow: auto;
+        background-color: rgba(0, 0, 0, 0);
       }
 
       #qrModal.show {
         display: block;
-        animation: fadeIn 0.4s forwards;
+        animation: fadeIn 0.4s ease-out forwards;
       }
 
       #qrModal.hide {
-        animation: fadeOut 0.4s forwards;
+        animation: fadeOut 0.4s ease-in forwards;
       }
 
       #qrModal .modal-dialog {
@@ -1552,7 +1553,7 @@
       }
 
       #qrModal.hide .modal-dialog {
-        animation: slideUp 0.4s ease-out forwards;
+        animation: slideUp 0.4s ease-in forwards;
       }
 
       .modal-content {
@@ -2336,18 +2337,40 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     <script>
       const modal = document.getElementById("qrModal");
       const closeBtn = modal.querySelector(".close");
+      let isAnimating = false;
 
       const closeModal = () => {
+        if (isAnimating) return;
+        isAnimating = true;
+
         modal.classList.remove("show");
         modal.classList.add("hide");
-        setTimeout(() => {
+
+        // Esperar a que la animación termine (400ms)
+        const animationTimer = setTimeout(() => {
           modal.style.display = "none";
           modal.classList.remove("hide");
+          isAnimating = false;
         }, 400);
+
+        // Fallback adicional usando animationend si el navegador lo soporta
+        const modalDialog = modal.querySelector(".modal-dialog");
+        if (modalDialog) {
+          modalDialog.addEventListener("animationend", function handler() {
+            clearTimeout(animationTimer);
+            modal.style.display = "none";
+            modal.classList.remove("hide");
+            isAnimating = false;
+            modalDialog.removeEventListener("animationend", handler);
+          }, { once: true });
+        }
       };
 
       window.addEventListener("load", () => {
-        setTimeout(() => modal.classList.add("show"), 100);
+        setTimeout(() => {
+          modal.style.display = "block";
+          modal.classList.add("show");
+        }, 100);
       });
 
       closeBtn.addEventListener("click", closeModal);
