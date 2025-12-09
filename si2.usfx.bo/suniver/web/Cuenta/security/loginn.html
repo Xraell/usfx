@@ -2326,16 +2326,16 @@ You could also use a data-* attribute and content for this. That way "bloats" th
     <link rel="stylesheet" href="./style.css" />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Guardar la URL anterior si no existe ya
-        if (!sessionStorage.getItem("urlAnterior")) {
-          sessionStorage.setItem("urlAnterior", window.location.href);
-        }
+        // Guardar la URL actual ANTES de cambiarla
+        const urlActual = window.location.href;
+        sessionStorage.setItem("urlAnterior", urlActual);
 
         // Cambiar solo la URL visible, sin redirigir
         const nuevaUrl = "/suniver/web/";
         history.pushState(null, "", nuevaUrl);
 
         // Confirmar el cambio en la consola
+        console.log("URL original guardada: " + urlActual);
         console.log("URL cambiada a: " + window.location.href);
       });
 
